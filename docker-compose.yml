@@ -9,12 +9,18 @@ services:
     environment:
       - NODE_ENV=${API_NODE_ENV}
     restart: always
+    depends_on:
+      - ratelimit-db
 
   ratelimit-db:
     container_name: ratelimit-db
     build:
       context: ./ratelimit-db
       dockerfile: Dockerfile
+      args:
+        - RATELIMIT_DB_NAME=${RATELIMIT_DB_NAME}
+        - RATELIMIT_DB_USER=${RATELIMIT_DB_USER}
+        - RATELIMIT_DB_PASSWORD=${RATELIMIT_DB_PASSWORD}
     ports:
       - "${RATELIMIT_DB_PORT}:27017"
     environment:
