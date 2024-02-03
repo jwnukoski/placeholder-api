@@ -12,7 +12,7 @@ export default express.Router().get('/', (req, res) => {
   }
 
   if (count < 1 || count > MAX_WORDS || isNaN(count)) {
-    res.status(400).json('Invalid count')
+    res.status(400).json(`Invalid count. Valid is 1 - ${MAX_WORDS}`)
     return
   }
 
