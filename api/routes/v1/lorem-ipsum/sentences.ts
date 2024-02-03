@@ -1,4 +1,3 @@
-// api/v1/random/int
 import express from 'express'
 import { LoremIpsum } from 'lorem-ipsum'
 

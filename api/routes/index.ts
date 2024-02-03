@@ -1,4 +1,3 @@
-// api
 import express from 'express'
 import v1routes from './v1/index'
 

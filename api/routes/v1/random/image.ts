@@ -1,4 +1,3 @@
-// api/v1/random/int
 import express from 'express'
 import fs from 'fs'
 import imgGen from 'js-image-generator'

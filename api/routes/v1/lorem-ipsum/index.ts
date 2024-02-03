@@ -1,4 +1,3 @@
-// api/v1
 import express from 'express'
 import paragraph from './paragraph'
 import sentences from './sentences'

@@ -1,4 +1,3 @@
-// api/v1
 import express from 'express'
 import random from './random/index'
 import loremIpsum from './lorem-ipsum/index'
