@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction, type Express } from 'express'
+import express, { type Express } from 'express'
 import routes from './routes/index'
 
 const app: Express = express()
