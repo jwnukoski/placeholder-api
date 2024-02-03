@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export const MAX_WIDTH = 1920
 export const MAX_HEIGHT = 1080
+export const MAX_QUALITY = 100
 
 export default express.Router().get('/', (req, res) => {
   let width: number = 24

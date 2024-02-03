@@ -14,6 +14,6 @@ describe('/api/v1/random/boolean', () => {
     const response = await supertest(app)
       .get('/api/v1/random/boolean')
 
-    expect(response.body).toBe(true || false)
+    expect(response.body).toBeBoolean()
   })
 })
