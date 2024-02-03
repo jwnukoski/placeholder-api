@@ -1,7 +1,7 @@
 import express from 'express'
 import { LoremIpsum } from 'lorem-ipsum'
 
-export const MAX_COUNT = 100
+export const MAX_SENTENCES = 100
 export const MAX_WORDS_PER_SENTENCE = 16
 
 export default express.Router().get('/', (req, res) => {
@@ -44,8 +44,8 @@ export default express.Router().get('/', (req, res) => {
     return
   }
 
-  if (count > MAX_COUNT || count < 1) {
-    res.status(400).json(`Count of ${count} is invalid. Valid is 1 - ${MAX_COUNT}.`)
+  if (count > MAX_SENTENCES || count < 1) {
+    res.status(400).json(`Count of ${count} is invalid. Valid is 1 - ${MAX_SENTENCES}.`)
     return
   }
 
