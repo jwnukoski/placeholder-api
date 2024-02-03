@@ -59,11 +59,6 @@ export default express.Router().get('/', (req, res) => {
   }
 
   // Verify lengths
-  if (minWordsPerSentence > maxWordsPerSentence) {
-    res.status(400).json(`Min (${minWordsPerSentence}) is greater than max (${maxWordsPerSentence}).`)
-    return
-  }
-
   if (count > MAX_PARAGRAPHS || count < 1) {
     res.status(400).json(`Count of ${count} is invalid. Valid is 1 - ${MAX_PARAGRAPHS}.`)
     return
@@ -74,7 +69,12 @@ export default express.Router().get('/', (req, res) => {
     return
   }
 
-  if (minWordsPerSentence < 1 || minWordsPerSentence > MAX_WORDS_PER_SENTENCE - 1) {
+  if (minWordsPerSentence > maxWordsPerSentence) {
+    res.status(400).json(`Min (${minWordsPerSentence}) is greater than max (${maxWordsPerSentence}).`)
+    return
+  }
+
+  if (minWordsPerSentence < 1 || minWordsPerSentence > MAX_WORDS_PER_SENTENCE) {
     res.status(400).json(`Min is of ${minWordsPerSentence} is invalid. Valid is 1 - ${MAX_WORDS_PER_SENTENCE - 1}`)
     return
   }
