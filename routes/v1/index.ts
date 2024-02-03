@@ -1,9 +1,9 @@
-// api
+// api/v1
 import express from 'express'
-import v1routes from './v1/index'
+import random from './random/index'
 
 const router = express.Router()
 
-router.use('/v1', v1routes)
+router.use('/random', random)
 
 export default router

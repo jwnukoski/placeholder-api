@@ -1,17 +1,9 @@
-const express = require('express');
-const router = express.Router();
+// api/v1/random
+import express from 'express'
+import int from './int'
 
-// Define routes
-router.get('/', (req, res) => {
-    // Logic to fetch all products
-    res.send('Get all products');
-});
+const router = express.Router()
 
-router.post('/', (req, res) => {
-    // Logic to create a new product
-    res.send('Create a new product');
-});
+router.use('/int', int)
 
-// Add more routes as needed
-
-module.exports = router;
+export default router
