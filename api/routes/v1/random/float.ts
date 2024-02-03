@@ -6,12 +6,12 @@ export default express.Router().get('/', (req, res) => {
   const min = Number(req?.query?.min)
   const max = Number(req?.query?.max)
 
-  if (Number.isNaN(min)) {
+  if (isNaN(min)) {
     res.status(400).send('Min is not a number')
     return
   }
 
-  if (Number.isNaN(max)) {
+  if (isNaN(max)) {
     res.status(400).send('Max is not a number')
     return
   }
