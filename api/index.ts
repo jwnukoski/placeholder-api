@@ -6,7 +6,7 @@ const app: Express = express()
 
 app.use(express.json())
 
-const port = process?.env?.PORT ?? 8080
+const port = 8080
 
 // // Middleware setup
 // app.use(express.json());
