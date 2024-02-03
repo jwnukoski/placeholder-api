@@ -18,7 +18,7 @@ describe('/api/v1/lorem-ipsum/words', () => {
     expect(response.status).toBe(400)
   })
 
-  test('returns 400 when count is not a number', async() => {
+  test('returns 400 when count is not a number', async () => {
     const response = await supertest(app)
       .get('/api/v1/lorem-ipsum/words?count=hello')
 
