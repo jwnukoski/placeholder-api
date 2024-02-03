@@ -8,61 +8,85 @@ export const MAX_WIDTH = 1920
 export const MAX_HEIGHT = 1080
 
 export default express.Router().get('/', (req, res) => {
-  const randomFileName = `./temp/images/${uuidv4()}.jpg`
-  let width = 24
-  let height = 24
-  let quality = 80
+  let width: number = 24
+  let height: number = 24
+  let quality: number = 80
 
-  if (req?.body?.width !== undefined) {
-    width = Number(req.body.width)
+  if (req?.query?.width !== undefined) {
+    width = Number(req.query.width)
   }
 
-  if (req?.body?.height !== undefined) {
-    height = Number(req.body.height)
+  if (req?.query?.height !== undefined) {
+    height = Number(req.query.height)
   }
 
-  if (req?.body?.quality !== undefined) {
-    quality = Number(req.body.quality)
+  if (req?.query?.quality !== undefined) {
+    quality = Number(req.query.quality)
   }
 
   if (Number.isNaN(width)) {
-    return res.status(400).json({ error: 'Invalid width' })
+    res.status(400).json({ error: 'Invalid width' })
+    return
   }
 
   if (Number.isNaN(height)) {
-    return res.status(400).json({ error: 'Invalid height' })
+    res.status(400).json({ error: 'Invalid height' })
+    return
   }
 
   if (Number.isNaN(quality)) {
-    return res.status(400).json({ error: 'Invalid quality' })
+    res.status(400).json({ error: 'Invalid quality' })
+    return
   }
 
   if (width < 1 || width > MAX_WIDTH) {
-    return res.status(400).json({ error: `Width must be between 1 and ${MAX_WIDTH}` })
+    res.status(400).json({ error: `Width must be between 1 and ${MAX_WIDTH}` })
+    return
   }
 
   if (height < 1 || height > MAX_HEIGHT) {
-    return res.status(400).json({ error: `Height must be between 1 and ${MAX_HEIGHT}` })
+    res.status(400).json({ error: `Height must be between 1 and ${MAX_HEIGHT}` })
+    return
   }
 
   if (quality < 1 || quality > 100) {
-    return res.status(400).json({ error: 'Quality must be between 1 and 100' })
+    res.status(400).json({ error: 'Quality must be between 1 and 100' })
+    return
   }
 
-  // Generate one image
+  // Create image
+  const randomFilePath: string = new URL(`../../../temp/images/${uuidv4()}.jpg`, import.meta.url).pathname
+  let wroteImage: boolean = false
+
   imgGen.generateImage(width, height, quality, (err, image) => {
     if (err !== null) {
-      return res.status(500).json({ error: 'Failed to generate image' })
+      res.status(500).json({ error: 'Failed to generate image' })
+      return
     }
 
-    fs.writeFileSync(randomFileName, image.data as Buffer)
+    try {
+      fs.writeFileSync(randomFilePath, image.data as Buffer)
+      wroteImage = true
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to generate image' })
+    }
   })
 
-  res.sendFile(randomFileName, (err) => {
+  if (!wroteImage) {
+    return
+  }
+
+  // Send image
+  res.sendFile(randomFilePath, (err) => {
     if (err !== null) {
       res.status(500).json({ error: 'Failed to send file' })
     }
 
-    fs.unlink(randomFileName, () => {})
+    // Delete image
+    try {
+      fs.unlink(randomFilePath, () => {})
+    } catch (e) {
+      console.error(e)
+    }
   })
 })

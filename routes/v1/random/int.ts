@@ -3,8 +3,8 @@ import express from 'express'
 import random from 'random'
 
 export default express.Router().get('/', (req, res) => {
-  const min: any = Number(req?.query?.min)
-  const max: any = Number(req?.query?.max)
+  const min: number = Number(req?.query?.min)
+  const max: number = Number(req?.query?.max)
 
   if (Number.isNaN(min)) {
     res.status(400).send('Min is not a number')
