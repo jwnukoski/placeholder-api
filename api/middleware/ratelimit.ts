@@ -6,8 +6,8 @@ const uri =
   `mongodb+srv://${process.env.RATELIMIT_DB_USER}:${process.env.RATELIMIT_DB_PASSWORD}@localhost:27017`;
 
 const url = process.env.NODE_ENV === 'development'
-  ? `mongodb://localhost:27017`
-  : 'mongodb://ratelimitdb:27017'
+  ? `mongodb://${process.env.RATELIMIT_DB_USER}:${process.env.RATELIMIT_DB_PASSWORD}@localhost:${process.env.RATELIMIT_DB_PORT}/?tls=false`
+  : `mongodb://${process.env.RATELIMIT_DB_USER}:${process.env.RATELIMIT_DB_PASSWORD}@ratelimit-db:${process.env.RATELIMIT_DB_PORT}/?tls=false`
 
 
 

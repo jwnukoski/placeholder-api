@@ -9,6 +9,14 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 RUN mkdir /usr/share/api
 COPY ./ /usr/share/api
 
+# Grab higher .env variables
+RUN cat ../.env | grep RATELIMIT_DB_USER > ./.env
+RUN echo "\n" >> ./.env
+RUN cat ../.env | grep RATELIMIT_DB_PASSWORD >> ./.env
+RUN echo "\n" >> ./.env
+RUN cat ../.env | grep RATELIMIT_DB_NAME >> ratelimit-db
+RUN echo "\nRATELIMIT_DB_PORT=27017"
+
 # Cleanup development files
 WORKDIR /usr/share/api
 RUN rm -rf node_modules
