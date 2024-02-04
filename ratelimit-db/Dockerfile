@@ -12,20 +12,20 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 RUN chown -R mongodb:mongodb /var/log /data/db 
 
 # Set build-time variables
-ARG RATELIMIT_DB_NAME
 ARG RATELIMIT_DB_USER
 ARG RATELIMIT_DB_PASSWORD
+ARG RATELIMIT_DB_NAME
 
 # Create a new user and database
 RUN echo " \
 db.createUser( \
     { \
-        user: "$RATELIMIT_DB_NAME", \
-        pwd: "$RATELIMIT_DB_USER", \
+        user: "$RATELIMIT_DB_USER", \
+        pwd: "$RATELIMIT_DB_PASSWORD", \
         roles: [ \
             { \
                 role: "readWrite", \
-                db: "$RATELIMIT_DB_PASSWORD" \
+                db: "$RATELIMIT_DB_NAME" \
             } \
         ] \
     } \ 
