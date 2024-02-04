@@ -1,16 +1,16 @@
 services:
-  api:
-    container_name: api
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    ports:
-      - "${API_PORT}:8080"
-    environment:
-      - NODE_ENV=${API_NODE_ENV}
-    restart: always
-    depends_on:
-      - ratelimit-db
+  # api:
+  #   container_name: api
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "${API_PORT}:8080"
+  #   environment:
+  #     - NODE_ENV=${API_NODE_ENV}
+  #   restart: always
+  #   depends_on:
+  #     - ratelimit-db
 
   ratelimit-db:
     container_name: ratelimit-db
@@ -18,7 +18,7 @@ services:
       context: ./ratelimit-db
       dockerfile: Dockerfile
       args:
-        - RATELIMIT_DB_NAME=${RATELIMIT_DB_NAME}
+        - RATELIMIT_DB_NAME=ratelimit-db
         - RATELIMIT_DB_USER=${RATELIMIT_DB_USER}
         - RATELIMIT_DB_PASSWORD=${RATELIMIT_DB_PASSWORD}
     ports:
@@ -26,7 +26,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${RATELIMIT_DB_ROOT_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${RATELIMIT_DB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${RATELIMIT_DB_NAME}
+      MONGO_INITDB_DATABASE: ratelimit-db
     restart: always
     volumes:
       - ./ratelimit-db/data:/data/db

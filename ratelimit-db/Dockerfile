@@ -12,14 +12,12 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 RUN chown -R mongodb:mongodb /var/log /data/db 
 
 # Set build-time variables
-ARG RATELIMIT_DB_NAME
 ARG RATELIMIT_DB_USER
 ARG RATELIMIT_DB_PASSWORD
 
 # Initiate database
-RUN echo "db.createCollection(\"$RATELIMIT_DB_NAME\");" >> /docker-entrypoint-initdb.d/init.js
-RUN echo "db.${RATELIMIT_DB_NAME}.insert({address: \"TEST\"})" >> /docker-entrypoint-initdb.d/init.js
-RUN echo "db.createUser({user: \"$RATELIMIT_DB_USER\", pwd: \"$RATELIMIT_DB_PASSWORD\", roles: [{role: \"readWrite\", db: \"$RATELIMIT_DB_NAME\"}]});" >> /docker-entrypoint-initdb.d/init.js
+COPY ./mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js
+RUN echo "\ndb.createUser({user: \"$RATELIMIT_DB_USER\", pwd: \"$RATELIMIT_DB_PASSWORD\", roles: [{role: \"readWrite\", db: \"ratelimit-db\"}]});" >> /docker-entrypoint-initdb.d/mongo-init.js
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
