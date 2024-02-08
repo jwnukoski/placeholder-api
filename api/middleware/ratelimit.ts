@@ -1,5 +1,4 @@
 import express from 'express'
-import { MongoClient, ObjectId } from 'mongodb'
 
 function getMongoConnUrl (): string {
   return process.env.NODE_ENV === 'production'
@@ -17,7 +16,7 @@ interface RateLimit {
 
 export default express.Router().all('*', (req, res, next) => {
   const db = client.db('ratelimits')
-  const collection = db.collection('ips')
+  const collection = db.collection('ratelimits')
   // const ip = req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
   const ip = '127.0.0.1'
 
