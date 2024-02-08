@@ -10,23 +10,23 @@ services:
   #     - NODE_ENV=${API_NODE_ENV}
   #   restart: always
   #   depends_on:
-  #     - ratelimit-db
+  #     - ratelimits-db
 
-  ratelimit-db:
-    container_name: ratelimit-db
+  ratelimits-db:
+    container_name: ratelimits-db
     build:
-      context: ./ratelimit-db
+      context: ./ratelimits-db
       dockerfile: Dockerfile
       args:
-        - RATELIMIT_DB_NAME=ratelimit-db
-        - RATELIMIT_DB_USER=${RATELIMIT_DB_USER}
-        - RATELIMIT_DB_PASSWORD=${RATELIMIT_DB_PASSWORD}
+        - RATELIMITS_DB_NAME=ratelimits
+        - RATELIMITS_DB_USER=${RATELIMITS_DB_USER}
+        - RATELIMITS_DB_PASSWORD=${RATELIMITS_DB_PASSWORD}
     ports:
-      - "${RATELIMIT_DB_PORT}:27017"
+      - "${RATELIMITS_DB_PORT}:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${RATELIMIT_DB_ROOT_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${RATELIMIT_DB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ratelimit-db
+      MONGO_INITDB_ROOT_USERNAME: ${RATELIMITS_DB_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${RATELIMITS_DB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ratelimits
     restart: always
     volumes:
-      - ./ratelimit-db/data:/data/db
+      - ./ratelimits-db/data:/data/db
