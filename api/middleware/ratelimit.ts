@@ -10,7 +10,7 @@ interface RateLimitModel {
 
 const mongooseClient = await mongoose.connect(getMongoConnUrl())
 const RateLimit = mongooseClient.model('RateLimit', getRateLimitDataSchema(), 'ips')
-const maxIpRequests = Number(process?.env?.RATELIMIT_IP_LIMIT ?? 100)
+const maxIpRequests = Number(process?.env?.RATELIMIT_IP_LIMIT ?? 10000)
 
 export default express.Router().all('*', (req, res, next) => {
   const ip = req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
