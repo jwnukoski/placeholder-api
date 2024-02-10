@@ -1,14 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
 
-function getMongoConnUrl (): string {
-  return process.env.NODE_ENV === 'production'
-    ? `mongodb://${process.env.RATELIMIT_DB_USER}:${process.env.RATELIMIT_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
-    : `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@localhost:${process.env.RATELIMITS_DB_PORT}/ratelimits?authSource=ratelimits&tls=false`
-}
-
-const mongooseClient = await mongoose.connect(getMongoConnUrl())
-
 interface RateLimitModel {
   _id: string
   data: {
@@ -16,6 +8,7 @@ interface RateLimitModel {
   }
 }
 
+const mongooseClient = await mongoose.connect(getMongoConnUrl())
 const RateLimit = mongooseClient.model('RateLimit', getRateLimitDataSchema(), 'ips')
 const maxIpRequests = Number(process?.env?.RATELIMIT_IP_LIMIT ?? 100)
 
@@ -66,4 +59,10 @@ function getRateLimitDataSchema (): mongoose.Schema<RateLimitModel> {
       count: Number
     }
   })
+}
+
+function getMongoConnUrl (): string {
+  return process.env.NODE_ENV === 'production'
+    ? `mongodb://${process.env.RATELIMIT_DB_USER}:${process.env.RATELIMIT_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
+    : `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@localhost:${process.env.RATELIMITS_DB_PORT}/ratelimits?authSource=ratelimits&tls=false`
 }
