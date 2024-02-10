@@ -13,9 +13,8 @@ COPY ./ /usr/share/api
 RUN cat ../.env | grep RATELIMIT_DB_USER > ./.env
 RUN echo "\n" >> ./.env
 RUN cat ../.env | grep RATELIMIT_DB_PASSWORD >> ./.env
-RUN echo "\n" >> ./.env
-RUN cat ../.env | grep RATELIMIT_DB_NAME >> ratelimit-db
-RUN echo "\nRATELIMIT_DB_PORT=27017"
+RUN echo "\nRATELIMIT_DB_NAME=ratelimits-db\nRATELIMIT_DB_PORT=27017\n" >> ./.env
+RUN cat ../.env | grep RATELIMIT_IP_LIMIT >> ./.env
 
 # Cleanup development files
 WORKDIR /usr/share/api

@@ -5,4 +5,4 @@ db.createCollection("ips",
         expireAfterSeconds: 86400 
     }
 );
-db.ips.insertOne({ "_id": "127.0.0.1", data: "init" });
+db.ips.insertOne({ "_id": "127.0.0.1", data: { "count": 0 } });
