@@ -15,6 +15,8 @@ RUN echo "\n" >> ./.env
 RUN cat ../.env | grep RATELIMIT_DB_PASSWORD >> ./.env
 RUN echo "\nRATELIMIT_DB_NAME=ratelimits-db\nRATELIMIT_DB_PORT=27017\n" >> ./.env
 RUN cat ../.env | grep RATELIMIT_IP_LIMIT >> ./.env
+RUN echo "\n" >> ./.env
+RUN cat ../.env | grep DELAY_MAX >> ./.env
 
 # Cleanup development files
 WORKDIR /usr/share/api

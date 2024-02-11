@@ -8,13 +8,14 @@ interface RateLimitModel {
   }
 }
 
-const mongooseClient = await mongoose.connect(getMongoConnUrl())
-const RateLimit = mongooseClient.model('RateLimit', getRateLimitDataSchema(), 'ips')
-const maxIpRequests = Number(process?.env?.RATELIMIT_IP_LIMIT ?? 10000)
+const MONGOOSE_CLIENT = await mongoose.connect(getMongoConnUrl())
+const RateLimit = MONGOOSE_CLIENT.model('RateLimit', getRateLimitDataSchema(), 'ips')
+const MAX_IP_REQUESTS = Number(process?.env?.RATELIMIT_IP_LIMIT ?? 10000)
 
+// Unregistered users. Limit by IP.
 export default express.Router().all('*', (req, res, next) => {
   const ip = req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
-  res.setHeader('X-RateLimit-Limit', `${maxIpRequests}`)
+  res.setHeader('X-RateLimit-Limit', `${MAX_IP_REQUESTS}`)
 
   // check mongo for ip, if one exists increment count, if not create one and set count to 1
   RateLimit.findOne<RateLimitModel>({ _id: ip }).then(async (doc) => {
@@ -27,7 +28,7 @@ export default express.Router().all('*', (req, res, next) => {
       }).save()
     }
 
-    if (doc.data.count >= maxIpRequests) {
+    if (doc.data.count >= MAX_IP_REQUESTS) {
       res.status(429).send(`Max requests reached for ${ip}`)
       return
     }
@@ -43,7 +44,7 @@ export default express.Router().all('*', (req, res, next) => {
       return
     }
 
-    res.setHeader('X-RateLimit-Remaining', `${maxIpRequests - used}`)
+    res.setHeader('X-RateLimit-Remaining', `${MAX_IP_REQUESTS - used}`)
   }).catch((err) => {
     console.error(err)
     res.status(500).send('Internal server error')
