@@ -177,3 +177,4 @@ dist
 # Custom
 .vscode
 ratelimits-db/data
+.env
