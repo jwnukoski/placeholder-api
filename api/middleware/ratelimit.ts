@@ -30,12 +30,12 @@ const MAX_IP_REQUESTS = Number(process?.env?.RATELIMITS_IP_LIMIT ?? 10000)
   *         default: 0
   *   responses:
   *     '200':
-  *       description: X-RateLimit-Remaining contains the number of requests remaining for the IP.
+  *       description: Headers containing usage statistics.
   *       content:
   *         plain/text:
   *           schema:
   *             type: string
-  *             example: 10
+  *             example: X-RateLimit-IP: {ip}, X-RateLimit-Limit: {limit}, X-RateLimit-Remaining: {remaining}
   *     '429':
   *       description: Max requests reached for the IP. No more requests allowed.
   *       content:
@@ -53,6 +53,7 @@ const MAX_IP_REQUESTS = Number(process?.env?.RATELIMITS_IP_LIMIT ?? 10000)
  */
 export default express.Router().all('*', (req, res, next) => {
   const ip = req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
+  res.setHeader('X-RateLimit-IP', `${ip}`)
   res.setHeader('X-RateLimit-Limit', `${MAX_IP_REQUESTS}`)
 
   // check mongo for ip, if one exists increment count, if not create one and set count to 1
