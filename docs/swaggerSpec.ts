@@ -4,9 +4,9 @@ import swaggerJSDoc from 'swagger-jsdoc'
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'Random API Documentation',
+    title: 'Placeholder API Documentation',
     version: '1.0.0',
-    description: 'A free-to-use API for retreiving random data.'
+    description: 'A free-to-use API for retreiving random placeholder data.'
   },
   servers: [
     {
