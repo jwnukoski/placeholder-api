@@ -23,7 +23,8 @@ const swaggerOptions = {
     '../api/middleware/*.ts',
     '../api/routes/v1/lorem-ipsum/*.ts',
     '../api/routes/v1/random/*.ts'
-  ]
+  ],
+  supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'] /* Exclude Head */
 }
 
 // Produces OpenAPI sepecification (equivalent to a swagger.json file)

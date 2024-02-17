@@ -15,7 +15,7 @@ const MAX_IP_REQUESTS = Number(process?.env?.RATELIMITS_IP_LIMIT ?? 10000)
 /**
   * @openapi
   * X-RateLimit-Limit:
-  *  *:
+  *  head:
   *   tags: [Middleware]
   *   summary: Usage by IP address.
   *   description: Contains usage statistics by IP.

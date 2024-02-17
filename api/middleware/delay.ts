@@ -5,7 +5,7 @@ export const DELAY_MAX = Number(process?.env?.DELAY_MAX ?? 10000)
 /**
   * @openapi
   * X-Delay:
-  *  *:
+  *  head:
   *   tags: [Middleware]
   *   summary: Optional user set response delay.
   *   description: Adds an additional delay to any response.
