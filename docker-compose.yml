@@ -47,3 +47,5 @@ services:
     environment:
       - NODE_ENV=${API_NODE_ENV}
     restart: always
+    depends_on:
+      - api

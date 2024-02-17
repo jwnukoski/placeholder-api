@@ -17,13 +17,13 @@ ARG RATELIMITS_IP_LIMIT
 ARG DELAY_MAX
 
 # Grab higher .env variables
-RUN echo $RATELIMITS_DB_USER > .env
+RUN echo RATELIMITS_DB_USER=$RATELIMITS_DB_USER > ./.env
 RUN echo "\n" >> .env
-RUN echo $RATELIMITS_DB_PASSWORD >> .env
-RUN echo "\nRATELIMITS_DB_NAME=$RATELIMITS_DB_NAME\nRATELIMITS_DB_PORT=27017\n" >> .env
-RUN echo $RATELIMITS_IP_LIMIT >> .env
-RUN echo "\n" >> .env
-RUN echo $DELAY_MAX >> .env
+RUN echo RATELIMITS_DB_PASSWORD=$RATELIMITS_DB_PASSWORD >> ./.env
+RUN echo "\nRATELIMITS_DB_NAME=$RATELIMITS_DB_NAME\nRATELIMITS_DB_PORT=27017\n" >> ./.env
+RUN echo RATELIMITS_IP_LIMIT=$RATELIMITS_IP_LIMIT >> ./.env
+RUN echo "\n" >> ./.env
+RUN echo DELAY_MAX=$DELAY_MAX >> ./.env
 
 # Use non-root user
 RUN chown -R node:node /usr/share/api
