@@ -1,0 +1,19 @@
+services:
+  ratelimits-db:
+    container_name: ratelimits-db
+    build:
+      context: ./ratelimits-db
+      dockerfile: Dockerfile
+      args:
+        - RATELIMITS_DB_NAME=ratelimits
+        - RATELIMITS_DB_USER=ratelimits
+        - RATELIMITS_DB_PASSWORD=ratelimits
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ratelimits
+      MONGO_INITDB_ROOT_PASSWORD: ratelimits
+      MONGO_INITDB_DATABASE: ratelimits
+    restart: always
+    volumes:
+      - ./ratelimits-db/dev-data:/data/db

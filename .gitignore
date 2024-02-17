@@ -177,4 +177,5 @@ dist
 # Custom
 .vscode
 ratelimits-db/data
+ratelimits-db/dev-data
 .env

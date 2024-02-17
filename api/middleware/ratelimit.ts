@@ -10,7 +10,7 @@ interface RateLimitModel {
 
 const MONGOOSE_CLIENT = await mongoose.connect(getMongoConnUrl())
 const RateLimit = MONGOOSE_CLIENT.model('RateLimit', getRateLimitDataSchema(), 'ips')
-const MAX_IP_REQUESTS = Number(process?.env?.RATELIMITS_IP_LIMIT ?? 10000)
+const MAX_IP_REQUESTS = getMaxIpRequests()
 
 /**
   * @openapi
@@ -105,4 +105,10 @@ function getMongoConnUrl (): string {
   return process.env.NODE_ENV === 'production'
     ? `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
     : `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@localhost:${process.env.RATELIMITS_DB_PORT}/ratelimits?authSource=ratelimits&tls=false`
+}
+
+function getMaxIpRequests () : number {
+  return process.env.NODE_ENV === 'production'
+    ? Number(process.env.RATELIMITS_IP_LIMIT)
+    : Number.MAX_SAFE_INTEGER
 }
