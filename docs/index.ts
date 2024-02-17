@@ -1,6 +1,13 @@
-import { Express, Request, Response } from 'express'
-import swaggerJsdoc from 'swagger-jsdoc'
+import express from 'express'
+import swaggerSpec from './swaggerSpec'
 import swaggerUi from 'swagger-ui-express'
-import { version } from './package.json'
-import log from './logger'
 
+const port = 3000
+const app = express()
+
+// Web pages for API documentation
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+app.listen(port, () => {
+  console.log(`Server is up and running on port ${port}`)
+})

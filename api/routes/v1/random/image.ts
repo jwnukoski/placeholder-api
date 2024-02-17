@@ -7,6 +7,61 @@ export const MAX_WIDTH = 1920
 export const MAX_HEIGHT = 1080
 export const MAX_QUALITY = 100
 
+/**
+  * @openapi
+  * /api/v1/random/image:
+  *  get:
+  *   tags: [/api/v1/random]
+  *   summary: Noise image
+  *   description: Returns a random noise image.
+  *   parameters:
+  *     - in: query
+  *       name: width
+  *       required: false
+  *       description: The width of the image.
+  *       schema:
+  *         type: integer
+  *         format: int32
+  *         minimum: 1
+  *         maximum: 1920
+  *         default: 24
+  *     - in: query
+  *       name: height
+  *       required: false
+  *       description: The height of the image.
+  *       schema:
+  *         type: integer
+  *         format: int32
+  *         minimum: 1
+  *         maximum: 1080
+  *         default: 24
+  *     - in: query
+  *       name: quality
+  *       required: false
+  *       description: The quality of the image.
+  *       schema:
+  *         type: integer
+  *         format: int32
+  *         minimum: 1
+  *         maximum: 100
+  *         default: 80
+  *   responses:
+  *     '200':
+  *       description: A random integer between min and max.
+  *       content:
+  *         application/json:
+  *           schema:
+  *             type: file
+  *             format: binary
+  *             example: noise.jpg
+  *     '400':
+  *       description: Bad request
+  *       content:
+  *         plain/text:
+  *           schema:
+  *             type: string
+  *             example: Width must be between 1 and 1920
+ */
 export default express.Router().get('/', (req, res) => {
   let width: number = 24
   let height: number = 24
@@ -25,32 +80,32 @@ export default express.Router().get('/', (req, res) => {
   }
 
   if (Number.isNaN(width)) {
-    res.status(400).json({ error: 'Invalid width' })
+    res.status(400).send('Invalid width')
     return
   }
 
   if (Number.isNaN(height)) {
-    res.status(400).json({ error: 'Invalid height' })
+    res.status(400).send('Invalid height')
     return
   }
 
   if (Number.isNaN(quality)) {
-    res.status(400).json({ error: 'Invalid quality' })
+    res.status(400).send('Invalid quality')
     return
   }
 
   if (width < 1 || width > MAX_WIDTH) {
-    res.status(400).json({ error: `Width must be between 1 and ${MAX_WIDTH}` })
+    res.status(400).send(`Width must be between 1 and ${MAX_WIDTH}`)
     return
   }
 
   if (height < 1 || height > MAX_HEIGHT) {
-    res.status(400).json({ error: `Height must be between 1 and ${MAX_HEIGHT}` })
+    res.status(400).send(`Height must be between 1 and ${MAX_HEIGHT}`)
     return
   }
 
-  if (quality < 1 || quality > 100) {
-    res.status(400).json({ error: 'Quality must be between 1 and 100' })
+  if (quality < 1 || quality > MAX_QUALITY) {
+    res.status(400).send(`Quality must be between 1 and ${MAX_QUALITY}`)
     return
   }
 
@@ -60,7 +115,7 @@ export default express.Router().get('/', (req, res) => {
 
   imgGen.generateImage(width, height, quality, (err, image) => {
     if (err !== null) {
-      res.status(500).json({ error: 'Failed to generate image' })
+      res.status(500).send('Failed to generate image')
       return
     }
 
@@ -68,7 +123,7 @@ export default express.Router().get('/', (req, res) => {
       fs.writeFileSync(randomFilePath, image.data as Buffer)
       wroteImage = true
     } catch (e) {
-      res.status(500).json({ error: 'Failed to generate image' })
+      res.status(500).send('Failed to generate image')
     }
   })
 
