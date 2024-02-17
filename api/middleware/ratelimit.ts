@@ -35,7 +35,7 @@ const MAX_IP_REQUESTS = Number(process?.env?.RATELIMITS_IP_LIMIT ?? 10000)
   *         plain/text:
   *           schema:
   *             type: string
-  *             example: X-RateLimit-IP: {ip}, X-RateLimit-Limit: {limit}, X-RateLimit-Remaining: {remaining}
+  *             example: X-RateLimit-IP, X-RateLimit-Limit, X-RateLimit-Remaining
   *     '429':
   *       description: Max requests reached for the IP. No more requests allowed.
   *       content:
@@ -52,7 +52,7 @@ const MAX_IP_REQUESTS = Number(process?.env?.RATELIMITS_IP_LIMIT ?? 10000)
   *             example: Internal server error.
  */
 export default express.Router().all('*', (req, res, next) => {
-  const ip = req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
+  const ip = req.headers['x-forwarded-for'] ?? req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
   res.setHeader('X-RateLimit-IP', `${ip}`)
   res.setHeader('X-RateLimit-Limit', `${MAX_IP_REQUESTS}`)
 
