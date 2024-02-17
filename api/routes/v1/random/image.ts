@@ -20,8 +20,7 @@ export const MAX_QUALITY = 100
   *       required: false
   *       description: The width of the image.
   *       schema:
-  *         type: integer
-  *         format: int32
+  *         type: number
   *         minimum: 1
   *         maximum: 1920
   *         default: 24
@@ -30,8 +29,7 @@ export const MAX_QUALITY = 100
   *       required: false
   *       description: The height of the image.
   *       schema:
-  *         type: integer
-  *         format: int32
+  *         type: number
   *         minimum: 1
   *         maximum: 1080
   *         default: 24
@@ -40,19 +38,17 @@ export const MAX_QUALITY = 100
   *       required: false
   *       description: The quality of the image.
   *       schema:
-  *         type: integer
-  *         format: int32
+  *         type: number
   *         minimum: 1
   *         maximum: 100
   *         default: 80
   *   responses:
   *     '200':
-  *       description: A random integer between min and max.
+  *       description: A random noise jpeg.
   *       content:
-  *         application/json:
+  *         image/jpeg:
   *           schema:
-  *             type: file
-  *             format: binary
+  *             type: string
   *             example: noise.jpg
   *     '400':
   *       description: Bad request
@@ -61,6 +57,13 @@ export const MAX_QUALITY = 100
   *           schema:
   *             type: string
   *             example: Width must be between 1 and 1920
+  *     '500':
+  *       description: Internal server error
+  *       content:
+  *         plain/text:
+  *           schema:
+  *             type: string
+  *             example: Failed to generate image
  */
 export default express.Router().get('/', (req, res) => {
   let width: number = 24
@@ -134,7 +137,7 @@ export default express.Router().get('/', (req, res) => {
   // Send image
   res.sendFile(randomFilePath, (err) => {
     if (err !== null) {
-      res.status(500).json({ error: 'Failed to send file' })
+      res.status(500).send('Failed to send file' )
     }
 
     // Delete image

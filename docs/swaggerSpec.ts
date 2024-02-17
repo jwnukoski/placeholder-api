@@ -20,7 +20,8 @@ const swaggerDefinition = {
 const swaggerOptions = {
   swaggerDefinition,
   apis: [
-    '../api/routes/v1/lorem-ipsum/.*.ts',
+    '../api/middleware/*.ts',
+    '../api/routes/v1/lorem-ipsum/*.ts',
     '../api/routes/v1/random/*.ts'
   ]
 }

@@ -1,6 +1,46 @@
 import express from 'express'
 import random from 'random'
 
+/**
+  * @openapi
+  * /api/v1/random/float:
+  *  get:
+  *   tags: [/api/v1/random]
+  *   summary: Float
+  *   description: Returns a random float in a given min and max range.
+  *   parameters:
+  *     - in: query
+  *       name: min
+  *       required: true
+  *       description: Minimum float.
+  *       schema:
+  *         type: number
+  *         minimum: Number.MIN_SAFE_INTEGER
+  *         maximum: Number.MAX_SAFE_INTEGER
+  *     - in: query
+  *       name: height
+  *       required: true
+  *       description: Maximum float.
+  *       schema:
+  *         type: number
+  *         minimum: Number.MIN_SAFE_INTEGER
+  *         maximum: Number.MAX_SAFE_INTEGER
+  *   responses:
+  *     '200':
+  *       description: A random float between min and max.
+  *       content:
+  *         application/json:
+  *           schema:
+  *             type: number
+  *             example: 1.55
+  *     '400':
+  *       description: Bad request
+  *       content:
+  *         plain/text:
+  *           schema:
+  *             type: string
+  *             example: Min is not a number
+ */
 export default express.Router().get('/', (req, res) => {
   const min = Number(req?.query?.min)
   const max = Number(req?.query?.max)

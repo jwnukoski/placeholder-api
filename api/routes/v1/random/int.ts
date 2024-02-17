@@ -15,14 +15,12 @@ import random from 'random'
   *       description: The minimum number.
   *       schema:
   *         type: integer
-  *         format: int32
   *     - in: query
   *       name: max
   *       required: true
   *       description: The maximum number.
   *       schema:
   *         type: integer
-  *         format: int32
   *   responses:
   *     '200':
   *       description: A random number.
@@ -30,7 +28,6 @@ import random from 'random'
   *         application/json:
   *           schema:
   *             type: integer
-  *             format: int32
   *             example: 123
   *     '400':
   *       description: Bad request

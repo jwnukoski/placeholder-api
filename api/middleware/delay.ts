@@ -2,7 +2,31 @@ import express from 'express'
 
 export const DELAY_MAX = Number(process?.env?.DELAY_MAX ?? 10000)
 
-// Lets the user set a delay for all requests
+/**
+  * @openapi
+  * X-Delay:
+  *  get:
+  *   tags: [Middleware]
+  *   summary: Optional user set response delay.
+  *   description: Adds an additional delay to any response.
+  *   parameters:
+  *     - in: header
+  *       name: X-Delay
+  *       description: Number of milliseconds to delay the response.
+  *       schema:
+  *         type: number
+  *         minimum: 0
+  *         maximum: 5000
+  *         default: 0
+  *   responses:
+  *     '*':
+  *       description: Message if the delay was used or failed. Empty if not used.
+  *       content:
+  *         plain/text:
+  *           schema:
+  *             type: string
+  *             example: Additional delay of 2000ms used
+ */
 export default express.Router().all('*', (req, res, next) => {
   if (req.headers['x-delay'] === undefined) {
     next()

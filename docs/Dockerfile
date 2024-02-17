@@ -5,9 +5,15 @@ RUN apt update && apt install -y vim
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 
-# Copy API
+
+# Copy this folder
 RUN mkdir /usr/share/www
 COPY ./ /usr/share/www
+
+# Copy for swagger docs
+RUN mkdir /usr/share/api
+COPY ../api/routes /usr/share/api/routes
+COPY ../api/middleware /usr/share/api/middleware
 
 # Cleanup development files
 WORKDIR /usr/share/www
@@ -15,6 +21,9 @@ RUN rm -rf node_modules
 RUN rm Dockerfile 
 RUN rm package-lock.json
 RUN rm bun.lockb
+
+# Generate API docs
+RUN ~/.bun/bin/bun api
 
 # Use non-root user
 RUN chown -R node:node /usr/share/www

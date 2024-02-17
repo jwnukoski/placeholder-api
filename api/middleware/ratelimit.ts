@@ -12,7 +12,45 @@ const MONGOOSE_CLIENT = await mongoose.connect(getMongoConnUrl())
 const RateLimit = MONGOOSE_CLIENT.model('RateLimit', getRateLimitDataSchema(), 'ips')
 const MAX_IP_REQUESTS = Number(process?.env?.RATELIMIT_IP_LIMIT ?? 10000)
 
-// Unregistered users. Limit by IP.
+/**
+  * @openapi
+  * X-RateLimit-Limit:
+  *  get:
+  *   tags: [Middleware]
+  *   summary: Usage by IP address.
+  *   description: Contains usage statistics by IP.
+  *   parameters:
+  *     - in: header
+  *       name: X-Delay
+  *       description: Number of milliseconds to delay the response.
+  *       schema:
+  *         type: number
+  *         minimum: 0
+  *         maximum: 5000
+  *         default: 0
+  *   responses:
+  *     '200':
+  *       description: X-RateLimit-Remaining contains the number of requests remaining for the IP.
+  *       content:
+  *         plain/text:
+  *           schema:
+  *             type: string
+  *             example: 10
+  *     '429':
+  *       description: Max requests reached for the IP. No more requests allowed.
+  *       content:
+  *         plain/text:
+  *           schema:
+  *             type: string
+  *             example: Max requests reached for {ip}
+  *     '500':
+  *       description: Internal server error.
+  *       content:
+  *         plain/text:
+  *           schema:
+  *             type: string
+  *             example: Internal server error.
+ */
 export default express.Router().all('*', (req, res, next) => {
   const ip = req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
   res.setHeader('X-RateLimit-Limit', `${MAX_IP_REQUESTS}`)

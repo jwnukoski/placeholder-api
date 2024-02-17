@@ -30,3 +30,16 @@ services:
     restart: always
     volumes:
       - ./ratelimits-db/data:/data/db
+
+  docs:
+    container_name: docs
+    build:
+      context: ./docs
+      dockerfile: Dockerfile
+    ports:
+      - "${DOCS_PORT}:3000"
+    environment:
+      - NODE_ENV=${API_NODE_ENV}
+    restart: always
+    depends_on:
+      - ratelimits-db
