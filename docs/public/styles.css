@@ -1,0 +1,37 @@
+* {
+    font-family: monospace, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+main {
+    min-height: 70vh;
+}
+
+.wrapper {
+    position: relative;
+    max-width: 1920px;
+    max-height: 1080px;
+    margin: 25vh auto;
+    margin: 25svh auto;
+}
+
+h1 {
+    margin-bottom: 0.5em;
+    font-size: clamp(1rem, 2vw, 3rem);
+}
+
+p {
+    margin-bottom: 1.5em;
+    font-size: clamp(0.5rem, 1vw, 2rem);
+}
+
+a {
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: none;
+}
