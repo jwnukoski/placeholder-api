@@ -2,7 +2,7 @@ import { expect, test, describe } from 'bun:test'
 import supertest from 'supertest'
 import app from '../../../../index'
 import { MAX_SENTENCES, MAX_WORDS_PER_SENTENCE } from '../../../../routes/v1/lorem-ipsum/sentences'
-import { MAX_PARAGRAPHS } from '../../../../routes/v1/lorem-ipsum/paragraph'
+import { MAX_PARAGRAPHS } from '../../../../routes/v1/lorem-ipsum/paragraphs'
 
 describe('/api/v1/lorem-ipsum/sentences', () => {
   test('returns a 400 when count is invalid', async () => {

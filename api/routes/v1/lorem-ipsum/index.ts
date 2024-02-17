@@ -1,5 +1,5 @@
 import express from 'express'
-import paragraphs from './paragraph'
+import paragraphs from './paragraphs'
 import sentences from './sentences'
 import words from './words'
 

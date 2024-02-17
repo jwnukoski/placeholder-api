@@ -6,7 +6,7 @@ export const MAX_PARAGRAPHS = 20
 
 /**
   * @openapi
-  * /api/v1/lorem-ipsum/paragraph:
+  * /api/v1/lorem-ipsum/paragraphs:
   *  get:
   *   tags: [/api/v1/lorem-ipsum]
   *   summary: Paragrph
