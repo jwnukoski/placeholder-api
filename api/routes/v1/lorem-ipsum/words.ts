@@ -8,7 +8,7 @@ export const MAX_WORDS = 100
   * /api/v1/lorem-ipsum/words:
   *  get:
   *   tags: [/api/v1/lorem-ipsum]
-  *   summary: Sentences
+  *   summary: Words
   *   description: Returns a random lorem ipsum sentence.
   *   parameters:
   *     - in: query

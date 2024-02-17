@@ -9,7 +9,7 @@ export const MAX_PARAGRAPHS = 20
   * /api/v1/lorem-ipsum/paragraphs:
   *  get:
   *   tags: [/api/v1/lorem-ipsum]
-  *   summary: Paragrph
+  *   summary: Paragraphs
   *   description: Returns a lorem ipsum paragraph(s).
   *   parameters:
   *     - in: query
