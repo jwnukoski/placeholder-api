@@ -15,7 +15,7 @@ The easiest way to run the unit tests is with [Bun](https://bun.sh/) and [Docker
 ```bash
 docker compose -f docker-compose-dev.yml up -d
 ```  
-1. Run units tests with Bun:
+2. Run units tests with Bun:
 ```bash
 NODE_ENV=development bun test -t api
 ```
