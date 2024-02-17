@@ -7,28 +7,21 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 # Copy API
 RUN mkdir /usr/share/api
-COPY ./ /usr/share/api
+COPY ./api /usr/share/api
+WORKDIR /usr/share/api
 
 # Grab higher .env variables
-RUN cat ../.env | grep RATELIMIT_DB_USER > ./.env
+RUN cat ./.env | grep RATELIMITS_DB_USER > ./.env
 RUN echo "\n" >> ./.env
-RUN cat ../.env | grep RATELIMIT_DB_PASSWORD >> ./.env
-RUN echo "\nRATELIMIT_DB_NAME=ratelimits-db\nRATELIMIT_DB_PORT=27017\n" >> ./.env
-RUN cat ../.env | grep RATELIMIT_IP_LIMIT >> ./.env
+RUN cat ./.env | grep RATELIMITS_DB_PASSWORD >> ./.env
+RUN echo "\nRATELIMITS_DB_NAME=ratelimits-db\nRATELIMITS_DB_PORT=27017\n" >> ./.env
+RUN cat ./.env | grep RATELIMITS_IP_LIMIT >> ./.env
 RUN echo "\n" >> ./.env
-RUN cat ../.env | grep DELAY_MAX >> ./.env
-
-# Cleanup development files
-WORKDIR /usr/share/api
-RUN rm -rf node_modules
-RUN rm Dockerfile 
-RUN rm package-lock.json
-RUN rm bun.lockb
+RUN cat ./.env | grep DELAY_MAX >> ./.env
 
 # Use non-root user
 RUN chown -R node:node /usr/share/api
 USER node
-WORKDIR /usr/share/api
 
 # Bun
 RUN curl -fsSL https://bun.sh/install | bash
