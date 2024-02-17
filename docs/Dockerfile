@@ -22,6 +22,7 @@ RUN rm bun.lockb
 
 # Use non-root user
 RUN chown -R node:node /usr/share/www
+RUN chown -R node:node /usr/share/api
 USER node
 WORKDIR /usr/share/www
 

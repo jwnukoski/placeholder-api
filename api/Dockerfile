@@ -10,14 +10,20 @@ RUN mkdir /usr/share/api
 COPY ./api /usr/share/api
 WORKDIR /usr/share/api
 
+ARG RATELIMITS_DB_NAME
+ARG RATELIMITS_DB_USER
+ARG RATELIMITS_DB_PASSWORD
+ARG RATELIMITS_IP_LIMIT
+ARG DELAY_MAX
+
 # Grab higher .env variables
-RUN cat ./.env | grep RATELIMITS_DB_USER > ./.env
-RUN echo "\n" >> ./.env
-RUN cat ./.env | grep RATELIMITS_DB_PASSWORD >> ./.env
-RUN echo "\nRATELIMITS_DB_NAME=ratelimits-db\nRATELIMITS_DB_PORT=27017\n" >> ./.env
-RUN cat ./.env | grep RATELIMITS_IP_LIMIT >> ./.env
-RUN echo "\n" >> ./.env
-RUN cat ./.env | grep DELAY_MAX >> ./.env
+RUN echo $RATELIMITS_DB_USER > .env
+RUN echo "\n" >> .env
+RUN echo $RATELIMITS_DB_PASSWORD >> .env
+RUN echo "\nRATELIMITS_DB_NAME=$RATELIMITS_DB_NAME\nRATELIMITS_DB_PORT=27017\n" >> .env
+RUN echo $RATELIMITS_IP_LIMIT >> .env
+RUN echo "\n" >> .env
+RUN echo $DELAY_MAX >> .env
 
 # Use non-root user
 RUN chown -R node:node /usr/share/api

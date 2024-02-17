@@ -137,7 +137,7 @@ export default express.Router().get('/', (req, res) => {
   // Send image
   res.sendFile(randomFilePath, (err) => {
     if (err !== null) {
-      res.status(500).send('Failed to send file' )
+      res.status(500).send('Failed to send file')
     }
 
     // Delete image
