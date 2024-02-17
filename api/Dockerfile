@@ -10,6 +10,7 @@ RUN mkdir /usr/share/api
 COPY ./api /usr/share/api
 WORKDIR /usr/share/api
 
+ARG NODE_ENV
 ARG RATELIMITS_DB_NAME
 ARG RATELIMITS_DB_USER
 ARG RATELIMITS_DB_PASSWORD
@@ -24,6 +25,8 @@ RUN echo "\nRATELIMITS_DB_NAME=$RATELIMITS_DB_NAME\nRATELIMITS_DB_PORT=27017\n" 
 RUN echo RATELIMITS_IP_LIMIT=$RATELIMITS_IP_LIMIT >> ./.env
 RUN echo "\n" >> ./.env
 RUN echo DELAY_MAX=$DELAY_MAX >> ./.env
+RUN echo "\n" >> .env
+RUN echo NODE_ENV=$NODE_ENV >> ./.env
 
 # Use non-root user
 RUN chown -R node:node /usr/share/api
