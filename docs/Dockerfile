@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:20.10.0
 RUN apt update && apt install -y vim
 
 # Set timezone to est
@@ -34,7 +34,7 @@ WORKDIR /usr/share/www
 RUN curl -fsSL https://bun.sh/install | bash
 RUN ~/.bun/bin/bun install
 RUN rm -rf node_modules
-RUN ~/.bun/bin/bun install --production
+RUN ~/.bun/bin/bun install --$NODE_ENV
 
 ENV NODE_ENV $NODE_ENV
 ENTRYPOINT [ "/home/node/.bun/bin/bun", "run", "/usr/share/www/index.ts" ]
