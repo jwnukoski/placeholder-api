@@ -10,7 +10,9 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'https://placeholder-api.com',
+      url: process.env.NODE_ENV === 'production'
+            ? `https://placeholder-api.com`
+            : `http://localhost:${process?.env?.API_PORT ?? 3005}`,
       description: 'Production server'
     }
   ]

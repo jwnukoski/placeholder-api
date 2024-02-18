@@ -1,4 +1,4 @@
-FROM node:20.10.0
+FROM node:latest
 RUN apt update && apt install -y vim
 
 # Set timezone to est
