@@ -102,12 +102,12 @@ function getRateLimitDataSchema (): mongoose.Schema<RateLimitModel> {
 }
 
 function getMongoConnUrl (): string {
-  return process.env.NODE_ENV === 'production'
-    ? `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
-    : `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@localhost:${process.env.RATELIMITS_DB_PORT}/ratelimits?authSource=ratelimits&tls=false`
+  return process.env.NODE_ENV === 'development'
+    ? `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@localhost:${process.env.RATELIMITS_DB_PORT}/ratelimits?authSource=ratelimits&tls=false`
+    : `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
 }
 
-function getMaxIpRequests () : number {
+function getMaxIpRequests (): number {
   return process.env.NODE_ENV === 'production'
     ? Number(process.env.RATELIMITS_IP_LIMIT)
     : Number.MAX_SAFE_INTEGER

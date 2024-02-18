@@ -7,7 +7,7 @@ const app: Express = express()
 
 app.use(express.json())
 
-const port = 8080
+const port = process?.env?.API_PORT ?? 8080
 
 // Middleware
 app.use(ratelimit) // Limit requests
