@@ -1,4 +1,4 @@
-FROM mongo:latest
+FROM mongo:5.0.24
 
 RUN apt update && apt install -y \
     vim \
