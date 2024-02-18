@@ -1,4 +1,4 @@
-FROM node:20.10.0
+FROM node:lts
 RUN apt update && apt install -y vim
 
 # Set timezone to est
@@ -36,4 +36,5 @@ RUN ~/.bun/bin/bun install
 RUN rm -rf node_modules
 RUN ~/.bun/bin/bun install --production
 
+ENV NODE_ENV $NODE_ENV
 ENTRYPOINT [ "/home/node/.bun/bin/bun", "run", "/usr/share/www/index.ts" ]

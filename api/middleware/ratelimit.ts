@@ -53,7 +53,7 @@ const MAX_IP_REQUESTS = getMaxIpRequests()
  */
 export default express.Router().all('*', (req, res, next) => {
   const ip = req.headers['x-forwarded-for'] ?? req.socket.remoteAddress ?? req.ip ?? req.socket.localAddress
-  res.setHeader('X-RateLimit-IP', `${ip}`)
+  res.setHeader('X-RateLimit-IP', `${String(ip)}`)
   res.setHeader('X-RateLimit-Limit', `${MAX_IP_REQUESTS}`)
 
   // check mongo for ip, if one exists increment count, if not create one and set count to 1
@@ -68,7 +68,7 @@ export default express.Router().all('*', (req, res, next) => {
     }
 
     if (doc.data.count >= MAX_IP_REQUESTS) {
-      res.status(429).send(`Max requests reached for ${ip}`)
+      res.status(429).send(`Max requests reached for ${String(ip)}`)
       return
     }
 
@@ -102,13 +102,13 @@ function getRateLimitDataSchema (): mongoose.Schema<RateLimitModel> {
 }
 
 function getMongoConnUrl (): string {
-  return process.env.NODE_ENV === 'development'
+  return process?.env?.NODE_ENV === 'development'
     ? `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@localhost:${process.env.RATELIMITS_DB_PORT}/ratelimits?authSource=ratelimits&tls=false`
     : `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
 }
 
 function getMaxIpRequests (): number {
-  return process.env.NODE_ENV === 'production'
+  return process?.env?.NODE_ENV === 'production'
     ? Number(process.env.RATELIMITS_IP_LIMIT)
     : Number.MAX_SAFE_INTEGER
 }

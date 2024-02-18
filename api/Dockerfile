@@ -1,4 +1,4 @@
-FROM node:20.10.0
+FROM node:lts
 RUN apt update && apt install -y vim
 
 # Set timezone to est
@@ -16,8 +16,6 @@ ARG RATELIMITS_DB_USER
 ARG RATELIMITS_DB_PASSWORD
 ARG RATELIMITS_IP_LIMIT
 ARG DELAY_MAX
-
-# Grab higher .env variables
 RUN echo "RATELIMITS_DB_USER=$RATELIMITS_DB_USER\n" > ./.env
 RUN echo "RATELIMITS_DB_PASSWORD=$RATELIMITS_DB_PASSWORD\n" >> ./.env
 RUN echo "RATELIMITS_DB_NAME=$RATELIMITS_DB_NAME\n" >> ./.env
@@ -29,7 +27,7 @@ RUN echo "NODE_ENV=$NODE_ENV\n" >> .env
 # Use non-root user
 RUN chown -R node:node /usr/share/api
 USER node
-RUN chmod +x /usr/share/api/entrypoint.sh
+WORKDIR /usr/share/api
 
 # Bun
 RUN curl -fsSL https://bun.sh/install | bash
@@ -37,5 +35,7 @@ RUN ~/.bun/bin/bun install
 RUN rm -rf node_modules
 RUN ~/.bun/bin/bun install --$NODE_ENV
 
-ENTRYPOINT 
+ENV NODE_ENV $NODE_ENV
+ENTRYPOINT [ "/home/node/.bun/bin/bun", "run", "/usr/share/api/index.ts" ]
+
 
