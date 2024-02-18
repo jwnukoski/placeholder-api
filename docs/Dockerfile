@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:lts
 RUN apt update && apt install -y vim
 
 # Set timezone to est
@@ -19,6 +19,10 @@ WORKDIR /usr/share/www
 RUN rm -rf node_modules
 RUN rm Dockerfile
 RUN rm bun.lockb
+
+# Env
+ARG NODE_ENV
+RUN echo NODE_ENV=$NODE_ENV > ./.env
 
 # Use non-root user
 RUN chown -R node:node /usr/share/www
