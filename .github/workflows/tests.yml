@@ -19,6 +19,9 @@ jobs:
         - name: Set up Docker Compose
           run: docker compose -f docker-compose-dev.yml up -d
 
+        - name: Sleep
+          run: sleep 30
+
         - name: Setup Bun
           uses: oven-sh/setup-bun@v1.1.1
         
