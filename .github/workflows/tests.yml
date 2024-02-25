@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - development
+    paths-ignore:
+      - "api/bun.lockb"
   pull_request:
     branches:
       - main
