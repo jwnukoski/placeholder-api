@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - development
-    paths-ignore:
-      - "api/bun.lockb"
   pull_request:
     branches:
       - main
@@ -25,7 +23,7 @@ jobs:
           uses: oven-sh/setup-bun@v1.1.1
         
         - name: Setup Tests
-          run: cd api && bun install
+          run: cd api && rm bun.lockb && bun install
 
         - name: Run Tests
           run: bun test
