@@ -22,8 +22,11 @@ jobs:
         - name: Setup Bun
           uses: oven-sh/setup-bun@v1.1.1
         
+        - name: Setup Tests
+          run: cd api && bun install
+
         - name: Run Tests
-          run: cd api && bun install && bun test
+          run: bun test
           
         - name: Tear down Docker Compose
           run: docker-compose down
