@@ -17,7 +17,7 @@ import random from 'random'
   *         type: number
   *         default: 0
   *     - in: query
-  *       name: height
+  *       name: max
   *       required: true
   *       description: Maximum float.
   *       schema:
