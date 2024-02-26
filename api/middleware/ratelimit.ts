@@ -8,7 +8,9 @@ interface RateLimitModel {
   }
 }
 
-const MONGOOSE_CLIENT = await mongoose.connect(getMongoConnUrl())
+const MONGOOSE_CONN_URL = getMongoConnUrl()
+console.log(MONGOOSE_CONN_URL)
+const MONGOOSE_CLIENT = await mongoose.connect(MONGOOSE_CONN_URL)
 const RateLimit = MONGOOSE_CLIENT.model('RateLimit', getRateLimitDataSchema(), 'ips')
 const MAX_IP_REQUESTS = getMaxIpRequests()
 
@@ -102,9 +104,9 @@ function getRateLimitDataSchema (): mongoose.Schema<RateLimitModel> {
 }
 
 function getMongoConnUrl (): string {
-  return process?.env?.NODE_ENV === 'development'
-    ? `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@localhost:${process.env.RATELIMITS_DB_PORT}/ratelimits?authSource=ratelimits&tls=false`
-    : `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
+  return process?.env?.NODE_ENV === 'production'
+    ? `mongodb://${process.env.RATELIMITS_DB_USER}:${process.env.RATELIMITS_DB_PASSWORD}@ratelimits-db:27017/ratelimits?tls=false`
+    : `mongodb://${process.env.RATELIMITS_DB_USER ?? 'ratelimits'}:${process.env.RATELIMITS_DB_PASSWORD ?? 'ratelimits'}@localhost:${process.env.RATELIMITS_DB_PORT ?? '27017'}/ratelimits?authSource=ratelimits&tls=false`
 }
 
 function getMaxIpRequests (): number {
