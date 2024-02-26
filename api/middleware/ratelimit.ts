@@ -8,9 +8,7 @@ interface RateLimitModel {
   }
 }
 
-const MONGOOSE_CONN_URL = getMongoConnUrl()
-console.log(MONGOOSE_CONN_URL)
-const MONGOOSE_CLIENT = await mongoose.connect(MONGOOSE_CONN_URL)
+const MONGOOSE_CLIENT = await mongoose.connect(getMongoConnUrl())
 const RateLimit = MONGOOSE_CLIENT.model('RateLimit', getRateLimitDataSchema(), 'ips')
 const MAX_IP_REQUESTS = getMaxIpRequests()
 
