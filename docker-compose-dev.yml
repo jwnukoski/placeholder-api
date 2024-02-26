@@ -14,6 +14,5 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ratelimits
       MONGO_INITDB_ROOT_PASSWORD: ratelimits
       MONGO_INITDB_DATABASE: ratelimits
-    restart: always
     volumes:
       - ./ratelimits-db/dev-data:/data/db
