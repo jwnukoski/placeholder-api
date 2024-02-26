@@ -58,12 +58,12 @@ export default express.Router().get('/', (req, res) => {
   }
 
   if (max > Number.MAX_SAFE_INTEGER || max < Number.MIN_SAFE_INTEGER) {
-    res.status(400).send('Max is too large')
+    res.status(400).send(`Max must be between ${Number.MIN_SAFE_INTEGER} and ${Number.MAX_SAFE_INTEGER}`)
     return
   }
 
   if (min > Number.MAX_SAFE_INTEGER || min < Number.MIN_SAFE_INTEGER) {
-    res.status(400).send('Min is too large')
+    res.status(400).send(`Min must be between ${Number.MIN_SAFE_INTEGER} and ${Number.MAX_SAFE_INTEGER}`)
     return
   }
 
