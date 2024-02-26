@@ -15,16 +15,14 @@ import random from 'random'
   *       description: Minimum float.
   *       schema:
   *         type: number
-  *         minimum: Number.MIN_SAFE_INTEGER
-  *         maximum: Number.MAX_SAFE_INTEGER
+  *         default: 0
   *     - in: query
   *       name: height
   *       required: true
   *       description: Maximum float.
   *       schema:
   *         type: number
-  *         minimum: Number.MIN_SAFE_INTEGER
-  *         maximum: Number.MAX_SAFE_INTEGER
+  *         default: 5
   *   responses:
   *     '200':
   *       description: A random float between min and max.
@@ -45,12 +43,12 @@ export default express.Router().get('/', (req, res) => {
   const min = Number(req?.query?.min)
   const max = Number(req?.query?.max)
 
-  if (isNaN(min)) {
+  if (Number.isNaN(min)) {
     res.status(400).send('Min is not a number')
     return
   }
 
-  if (isNaN(max)) {
+  if (Number.isNaN(max)) {
     res.status(400).send('Max is not a number')
     return
   }
@@ -61,12 +59,12 @@ export default express.Router().get('/', (req, res) => {
   }
 
   if (max > Number.MAX_SAFE_INTEGER || max < Number.MIN_SAFE_INTEGER) {
-    res.status(400).send('Max is too large')
+    res.status(400).send(`Max must be between ${Number.MIN_SAFE_INTEGER} and ${Number.MAX_SAFE_INTEGER}`)
     return
   }
 
   if (min > Number.MAX_SAFE_INTEGER || min < Number.MIN_SAFE_INTEGER) {
-    res.status(400).send('Min is too large')
+    res.status(400).send(`Min must be between ${Number.MIN_SAFE_INTEGER} and ${Number.MAX_SAFE_INTEGER}`)
     return
   }
 
