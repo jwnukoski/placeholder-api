@@ -27,4 +27,6 @@ RUN echo "0 0 * * * mongodb mongo ratelimits --eval 'db.ips.remove({})'" > /etc/
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+USER mongodb
+
 ENTRYPOINT ["/entrypoint.sh"]
