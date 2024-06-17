@@ -24,7 +24,8 @@ const swaggerOptions = {
   apis: [
     '../api/middleware/*.ts',
     '../api/routes/v1/lorem-ipsum/*.ts',
-    '../api/routes/v1/random/*.ts'
+    '../api/routes/v1/primitive/*.ts',
+    '../api/routes/v1/image/*.ts',
   ],
   supportedSubmitMethods: []
 }

@@ -9,10 +9,10 @@ export const MAX_QUALITY = 100
 
 /**
   * @openapi
-  * /api/v1/random/image:
+  * /api/v1/image/noise:
   *  get:
-  *   tags: [/api/v1/random]
-  *   summary: Noise image
+  *   tags: [Image]
+  *   summary: Noise
   *   description: Returns a random noise image.
   *   parameters:
   *     - in: query

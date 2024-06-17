@@ -3,9 +3,9 @@ import random from 'random'
 
 /**
   * @openapi
-  * /api/v1/random/boolean:
+  * /api/v1/primitive/boolean:
   *  get:
-  *   tags: [/api/v1/random]
+  *   tags: [Primitive]
   *   summary: Boolean
   *   description: Returns a random boolean.
   *   responses:

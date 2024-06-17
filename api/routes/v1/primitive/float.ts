@@ -3,9 +3,9 @@ import random from 'random'
 
 /**
   * @openapi
-  * /api/v1/random/float:
+  * /api/v1/primitive/float:
   *  get:
-  *   tags: [/api/v1/random]
+  *   tags: [Primitive]
   *   summary: Float
   *   description: Returns a random float in a given min and max range.
   *   parameters:
