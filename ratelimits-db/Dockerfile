@@ -1,4 +1,4 @@
-FROM mongo:5.8.13
+FROM mongo:7
 
 RUN apt update && apt install -y \
     vim \
@@ -10,7 +10,7 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 # Set permission on database and log directories
-RUN chown -R mongodb:mongodb /var/log /data/db 
+RUN chown -R mongodb:mongodb /var/log /data/db
 
 # Set build-time variables
 ARG RATELIMITS_DB_USER
@@ -22,11 +22,9 @@ RUN echo "\ndb.createUser({user: \"$RATELIMITS_DB_USER\", pwd: \"$RATELIMITS_DB_
 
 # Set up cron
 RUN touch /var/log/cron.log && chmod 0644 /var/log/cron.log
-RUN echo "0 0 * * * mongodb mongo ratelimits --eval 'db.ips.remove({})'" > /etc/cron.d/clear-ratelimits
+RUN echo "0 0 * * * root gosu mongodb mongo ratelimits --eval 'db.ips.remove({})'" > /etc/cron.d/clear-ratelimits
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-USER mongodb
 
 ENTRYPOINT ["/entrypoint.sh"]

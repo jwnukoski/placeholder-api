@@ -26,9 +26,6 @@ jobs:
           uses: oven-sh/setup-bun@v1
           with:
             bun-version: 1.1.1
-
-        - name: Sleep
-          run: sleep 30
         
         - name: Setup Tests
           run: cd api && rm bun.lockb && bun install
