@@ -8,7 +8,7 @@ export const MAX_WORDS_PER_SENTENCE = 16
   * @openapi
   * /api/v1/lorem-ipsum/sentences:
   *  get:
-  *   tags: [/api/v1/lorem-ipsum]
+  *   tags: [Lorem Ipsum]
   *   summary: Sentences
   *   description: Returns lorem ipsum sentence(s).
   *   parameters:

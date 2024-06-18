@@ -8,7 +8,7 @@ export const MAX_PARAGRAPHS = 20
   * @openapi
   * /api/v1/lorem-ipsum/paragraphs:
   *  get:
-  *   tags: [/api/v1/lorem-ipsum]
+  *   tags: [Lorem Ipsum]
   *   summary: Paragraphs
   *   description: Returns a lorem ipsum paragraph(s).
   *   parameters:

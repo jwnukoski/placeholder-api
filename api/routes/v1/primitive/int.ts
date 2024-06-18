@@ -3,9 +3,9 @@ import random from 'random'
 
 /**
   * @openapi
-  * /api/v1/random/int:
+  * /api/v1/primitive/int:
   *  get:
-  *   tags: [/api/v1/random]
+  *   tags: [Primitive]
   *   summary: Integer
   *   description: Returns a random integer between a given min and max number.
   *   parameters:

@@ -7,7 +7,7 @@ export const MAX_WORDS = 100
   * @openapi
   * /api/v1/lorem-ipsum/words:
   *  get:
-  *   tags: [/api/v1/lorem-ipsum]
+  *   tags: [Lorem Ipsum]
   *   summary: Words
   *   description: Returns a random lorem ipsum sentence.
   *   parameters:
