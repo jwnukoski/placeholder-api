@@ -30,7 +30,7 @@ USER node
 WORKDIR /usr/share/api
 
 # Bun
-RUN curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.1"
+RUN curl -fsSL https://bun.sh/install | bash
 RUN ~/.bun/bin/bun install
 RUN rm -rf node_modules
 RUN ~/.bun/bin/bun install --$NODE_ENV
