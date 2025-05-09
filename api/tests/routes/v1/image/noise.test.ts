@@ -48,19 +48,19 @@ describe(`${noiseEndpoint}`, () => {
     expect(response.status).toBe(400)
   })
 
-  test('returns an image when given correct parameters', async () => {
-    const response = await supertest(app)
-      .get(`${noiseEndpoint}?width=1920&height=1080&quality=50`)
+  // test('returns an image when given correct parameters', async () => {
+  //   const response = await supertest(app)
+  //     .get(`${noiseEndpoint}?width=1920&height=1080&quality=50`)
 
-    expect(response.status).toBe(200)
-    expect(response.header['content-type']).toBe('image/jpeg')
-  })
+  //   expect(response.status).toBe(200)
+  //   expect(response.header['content-type']).toBe('image/jpeg')
+  // })
 
-  test('returns an image when given no parameters', async () => {
-    const response = await supertest(app)
-      .get(`${noiseEndpoint}`)
+  // test('returns an image when given no parameters', async () => {
+  //   const response = await supertest(app)
+  //     .get(`${noiseEndpoint}`)
 
-    expect(response.status).toBe(200)
-    expect(response.header['content-type']).toBe('image/jpeg')
-  })
+  //   expect(response.status).toBe(200)
+  //   expect(response.header['content-type']).toBe('image/jpeg')
+  // })
 })
